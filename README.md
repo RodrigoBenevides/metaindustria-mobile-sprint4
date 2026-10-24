@@ -1,10 +1,10 @@
-# MetaindÃºstria â€” Mobile Dev | Sprint 4 (Entrega Final)
+# Metaindústria — Mobile Dev | Sprint 4 (Entrega Final)
 
-Aplicativo de monitoramento e cadastro de equipamentos industriais, desenvolvido para a disciplina **Advanced Programming & Mobile Dev**. A soluÃ§Ã£o integra um **backend REST com Java/Spring Boot** e um **aplicativo mobile com React Native, Expo e TypeScript**.
+Aplicativo de monitoramento e cadastro de equipamentos industriais, desenvolvido para a disciplina **Advanced Programming & Mobile Dev**. A solução integra um **backend REST com Java/Spring Boot** e um **aplicativo mobile com React Native, Expo e TypeScript**.
 
-## 1. Problema e soluÃ§Ã£o
+## 1. Problema e solução
 
-O objetivo Ã© permitir o registro e a consulta de equipamentos industriais por setor, com informaÃ§Ãµes sobre status operacional, temperatura atual e Ãºltima manutenÃ§Ã£o. A API centraliza os registros em um banco H2 persistente em arquivo; o app utiliza essa API para listar, cadastrar e consultar equipamentos.
+O objetivo é permitir o registro e a consulta de equipamentos industriais por setor, com informações sobre status operacional, temperatura atual e última manutenção. A API centraliza os registros em um banco H2 persistente em arquivo; o app utiliza essa API para listar, cadastrar e consultar equipamentos.
 
 **Entidade principal:** `Equipamento`.
 
@@ -27,10 +27,10 @@ O objetivo Ã© permitir o registro e a consulta de equipamentos industriais por
 | Rodrigo Caruzzo Benevides | 554665 |
 | Eduardo do Nascimento Souza | 558819 |
 
-## 3. RepositÃ³rios do cÃ³digo
+## 3. Repositórios do código
 
 - **Backend Spring Boot:** https://github.com/RodrigoBenevides/metaindustria-backend-sprint1
-- **Frontend Expo (repositÃ³rio desta entrega):** https://github.com/RodrigoBenevides/metaindustria-mobile-sprint4
+- **Frontend Expo (repositório desta entrega):** https://github.com/RodrigoBenevides/metaindustria-mobile-sprint4
 
 Para reproduzir, clone **ambos**:
 
@@ -39,14 +39,14 @@ git clone https://github.com/RodrigoBenevides/metaindustria-backend-sprint1.git
 git clone https://github.com/RodrigoBenevides/metaindustria-mobile-sprint4.git
 ```
 
-## 4. PrÃ©-requisitos
+## 4. Pré-requisitos
 
-- **Java 17** instalado e disponÃ­vel no terminal (`java -version`).
-- **Maven** ou o **Maven Wrapper** (`mvnw`/`mvnw.cmd`) incluÃ­do no backend.
+- **Java 17** instalado e disponível no terminal (`java -version`).
+- **Maven** ou o **Maven Wrapper** (`mvnw`/`mvnw.cmd`) incluído no backend.
 - **Node.js e npm** instalados (`node -v` e `npm -v`).
-- **Expo** executado por `npx expo start` (nÃ£o requer instalaÃ§Ã£o global da CLI).
-- Para abrir o app: **emulador Android** ou **celular com Expo Go**, na mesma rede do computador quando usar dispositivo fÃ­sico.
-- Git, para clonar os repositÃ³rios.
+- **Expo** executado por `npx expo start` (não requer instalação global da CLI).
+- Para abrir o app: **emulador Android** ou **celular com Expo Go**, na mesma rede do computador quando usar dispositivo físico.
+- Git, para clonar os repositórios.
 
 Use **dois terminais**: um para o backend e outro para o app.
 
@@ -72,14 +72,14 @@ Abra um terminal na pasta `metaindustria-backend-sprint1`.
 mvn spring-boot:run
 ```
 
-A API estÃ¡ configurada na **porta 8080**. Com a aplicaÃ§Ã£o iniciada, abra:
+A API está configurada na **porta 8080**. Com a aplicação iniciada, abra:
 
-- `http://localhost:8080/equipamentos` â€” lista os equipamentos em **JSON** (pode retornar `[]` se o banco estiver vazio).
-- `http://localhost:8080/h2-console` â€” console do H2.
+- `http://localhost:8080/equipamentos` — lista os equipamentos em **JSON** (pode retornar `[]` se o banco estiver vazio).
+- `http://localhost:8080/h2-console` — console do H2.
 
-**PersistÃªncia H2 em arquivo:** o backend usa `jdbc:h2:file:./data/metaindustria`, definido em `src/main/resources/application.properties`; ao reiniciar o backend na mesma pasta, os registros sÃ£o mantidos no arquivo do banco. ConfiguraÃ§Ã£o do console: usuÃ¡rio `sa`, senha vazia e a mesma URL JDBC.
+**Persistência H2 em arquivo:** o backend usa `jdbc:h2:file:./data/metaindustria`, definido em `src/main/resources/application.properties`; ao reiniciar o backend na mesma pasta, os registros são mantidos no arquivo do banco. Configuração do console: usuário `sa`, senha vazia e a mesma URL JDBC.
 
-**CORS:** o `EquipamentoController` estÃ¡ anotado com `@CrossOrigin`.
+**CORS:** o `EquipamentoController` está anotado com `@CrossOrigin`.
 
 ## 6. Executar o frontend Expo
 
@@ -94,31 +94,31 @@ Abra o app pelo emulador ou pelo Expo Go. Mantenha o backend iniciado para carre
 
 ### Configurar a `BASE_URL` da API
 
-O arquivo `src/services/api.ts` usa `EXPO_PUBLIC_API_URL` quando configurada. Caso contrÃ¡rio, utiliza o endereÃ§o padrÃ£o por plataforma:
+O arquivo `src/services/api.ts` usa `EXPO_PUBLIC_API_URL` quando configurada. Caso contrário, utiliza o endereço padrão por plataforma:
 
-| Onde o app roda | EndereÃ§o da API |
+| Onde o app roda | Endereço da API |
 | --- | --- |
 | Emulador Android (Android Studio) | `http://10.0.2.2:8080` |
-| Simulador iOS no mesmo computador / execuÃ§Ã£o local compatÃ­vel | `http://localhost:8080` |
-| Celular fÃ­sico (Android ou iPhone) | `http://IP_DO_COMPUTADOR:8080` |
+| Simulador iOS no mesmo computador / execução local compatível | `http://localhost:8080` |
+| Celular físico (Android ou iPhone) | `http://IP_DO_COMPUTADOR:8080` |
 
-**AtenÃ§Ã£o:** `localhost` em um celular fÃ­sico aponta para o prÃ³prio celular, nÃ£o para o computador. Para usar um celular fÃ­sico, descubra o IP local do computador que executa o backend, mantenha ambos na mesma rede e crie um arquivo **`.env.local` na raiz do frontend**:
+**Atenção:** `localhost` em um celular físico aponta para o próprio celular, não para o computador. Para usar um celular físico, descubra o IP local do computador que executa o backend, mantenha ambos na mesma rede e crie um arquivo **`.env.local` na raiz do frontend**:
 
 ```env
 EXPO_PUBLIC_API_URL=http://192.168.0.10:8080
 ```
 
-Substitua `192.168.0.10` pelo IP real do computador. Depois de alterar o arquivo, reinicie o Expo, preferencialmente com `npx expo start -c`. A porta 8080 precisa estar acessÃ­vel pela rede local e liberada no firewall do computador.
+Substitua `192.168.0.10` pelo IP real do computador. Depois de alterar o arquivo, reinicie o Expo, preferencialmente com `npx expo start -c`. A porta 8080 precisa estar acessível pela rede local e liberada no firewall do computador.
 
-## 7. Endpoints disponÃ­veis
+## 7. Endpoints disponíveis
 
-| MÃ©todo | Rota | Finalidade | Usado no app |
+| Método | Rota | Finalidade | Usado no app |
 | --- | --- | --- | --- |
-| `GET` | `/equipamentos` | Listar equipamentos | Sim â€” lista |
-| `GET` | `/equipamentos/{id}` | Consultar um equipamento | Sim â€” detalhe |
-| `POST` | `/equipamentos` | Cadastrar equipamento | Sim â€” cadastro |
-| `PUT` | `/equipamentos/{id}` | Atualizar equipamento | DisponÃ­vel na API, nÃ£o usado nas trÃªs telas |
-| `DELETE` | `/equipamentos/{id}` | Remover equipamento | DisponÃ­vel na API, nÃ£o usado nas trÃªs telas |
+| `GET` | `/equipamentos` | Listar equipamentos | Sim — lista |
+| `GET` | `/equipamentos/{id}` | Consultar um equipamento | Sim — detalhe |
+| `POST` | `/equipamentos` | Cadastrar equipamento | Sim — cadastro |
+| `PUT` | `/equipamentos/{id}` | Atualizar equipamento | Disponível na API, não usado nas três telas |
+| `DELETE` | `/equipamentos/{id}` | Remover equipamento | Disponível na API, não usado nas três telas |
 
 **Exemplo do corpo de `POST /equipamentos`:**
 
@@ -132,46 +132,46 @@ Substitua `192.168.0.10` pelo IP real do computador. Depois de alterar o arquivo
 }
 ```
 
-## 8. Fluxo tela â†’ serviÃ§o â†’ endpoint
+## 8. Fluxo tela → serviço → endpoint
 
-| Tela | Chamada da tela | Camada `src/services/` | RequisiÃ§Ã£o Ã  API |
+| Tela | Chamada da tela | Camada `src/services/` | Requisição à API |
 | --- | --- | --- | --- |
-| `ListaEquipamentosScreen` | `listar()` | `equipamentoService.ts` â†’ `api.ts` | `GET /equipamentos` |
-| `CadastroEquipamentoScreen` | `criar(dados)` | `equipamentoService.ts` â†’ `api.ts` | `POST /equipamentos` |
-| `DetalheEquipamentoScreen` | `buscarPorId(id)` | `equipamentoService.ts` â†’ `api.ts` | `GET /equipamentos/{id}` |
+| `ListaEquipamentosScreen` | `listar()` | `equipamentoService.ts` → `api.ts` | `GET /equipamentos` |
+| `CadastroEquipamentoScreen` | `criar(dados)` | `equipamentoService.ts` → `api.ts` | `POST /equipamentos` |
+| `DetalheEquipamentoScreen` | `buscarPorId(id)` | `equipamentoService.ts` → `api.ts` | `GET /equipamentos/{id}` |
 
-`api.ts` concentra a URL base, o timeout de 10 segundos e o header JSON. Os dados exibidos no fluxo principal vÃªm da API: **o frontend final nÃ£o utiliza mock para alimentar lista, cadastro ou detalhe**.
+`api.ts` concentra a URL base, o timeout de 10 segundos e o header JSON. Os dados exibidos no fluxo principal vêm da API: **o frontend final não utiliza mock para alimentar lista, cadastro ou detalhe**.
 
 ## 9. Como comprovar o cadastro do app na API
 
-1. Com o backend em execuÃ§Ã£o, abra `http://localhost:8080/equipamentos` no navegador e observe o JSON atual (uma lista vazia tambÃ©m Ã© vÃ¡lida).
+1. Com o backend em execução, abra `http://localhost:8080/equipamentos` no navegador e observe o JSON atual (uma lista vazia também é válida).
 2. No aplicativo Expo, abra **Cadastrar equipamento**.
-3. Preencha nome e setor; selecione o status e informe temperatura e data de manutenÃ§Ã£o. Toque em **Salvar equipamento**.
-4. Retorne Ã  lista e veja o equipamento cadastrado. Abra sua ficha de **detalhe**, que busca os dados pela API.
-5. Atualize `http://localhost:8080/equipamentos` no navegador. O equipamento cadastrado deve estar presente no JSON com um `id` atribuÃ­do pelo backend.
-6. Para confirmar a persistÃªncia, encerre e reinicie a API na **mesma pasta** e consulte o GET novamente.
+3. Preencha nome e setor; selecione o status e informe temperatura e data de manutenção. Toque em **Salvar equipamento**.
+4. Retorne à lista e veja o equipamento cadastrado. Abra sua ficha de **detalhe**, que busca os dados pela API.
+5. Atualize `http://localhost:8080/equipamentos` no navegador. O equipamento cadastrado deve estar presente no JSON com um `id` atribuído pelo backend.
+6. Para confirmar a persistência, encerre e reinicie a API na **mesma pasta** e consulte o GET novamente.
 
 ## 10. Como comprovar o erro com o backend desligado
 
 1. Com a API funcionando, confirme que a lista do app carrega os dados reais.
 2. No terminal do backend, pressione **Ctrl+C** e encerre o Spring Boot; mantenha o Expo aberto.
-3. Volte ao aplicativo e provoque uma nova consulta (por exemplo, reabra a lista ou use **Tentar novamente** quando disponÃ­vel).
-4. O aplicativo deve apresentar **Backend indisponÃ­vel** ou mensagem de consulta/cadastro indisponÃ­vel. Os dados **nÃ£o devem ser substituÃ­dos por uma lista de mock**.
-5. Se desejar demonstrar a recuperaÃ§Ã£o, reinicie o backend e toque em **Tentar novamente**.
+3. Volte ao aplicativo e provoque uma nova consulta (por exemplo, reabra a lista ou use **Tentar novamente** quando disponível).
+4. O aplicativo deve apresentar **Backend indisponível** ou mensagem de consulta/cadastro indisponível. Os dados **não devem ser substituídos por uma lista de mock**.
+5. Se desejar demonstrar a recuperação, reinicie o backend e toque em **Tentar novamente**.
 
-O erro deve ser exibido ao tentar obter os dados novamente; uma tela jÃ¡ carregada anteriormente nÃ£o realiza necessariamente uma nova requisiÃ§Ã£o atÃ© ser reaberta ou atualizada.
+O erro deve ser exibido ao tentar obter os dados novamente; uma tela já carregada anteriormente não realiza necessariamente uma nova requisição até ser reaberta ou atualizada.
 
-## 11. VÃ­deo demonstrativo (YouTube â€” NÃ£o listado)
+## 11. Vídeo demonstrativo (YouTube — Não listado)
 
-**Link do vÃ­deo da Sprint 4:** **[INSERIR AQUI O LINK REAL DO VÃDEO FINAL PUBLICADO NO YOUTUBE]**
+**Link do vídeo da Sprint 4:** **[INSERIR AQUI O LINK REAL DO VÍDEO FINAL PUBLICADO NO YOUTUBE]**
 
-O vÃ­deo final deve ter **atÃ© cinco minutos**, ficar como **NÃ£o listado** (nÃ£o Privado) e demonstrar, nesta ordem:
+O vídeo final deve ter **até cinco minutos**, ficar como **Não listado** (não Privado) e demonstrar, nesta ordem:
 
 1. README e links de frontend/backend no GitHub.
 2. Backend iniciado e `GET /equipamentos` retornando JSON.
 3. Aplicativo Expo listando os dados da API.
 4. Cadastro pelo app e registro novo aparecendo no GET do backend.
 5. Encerramento da API pelo terminal.
-6. Nova tentativa de carregamento no aplicativo com mensagem de erro visÃ­vel e **sem fallback para dados mockados**.
+6. Nova tentativa de carregamento no aplicativo com mensagem de erro visível e **sem fallback para dados mockados**.
 
-**Antes de entregar:** substitua o texto entre colchetes pelo link pÃºblico de acesso ao vÃ­deo NÃ£o listado. **NÃ£o envie a entrega final com este campo pendente.**
+**Antes de entregar:** substitua o texto entre colchetes pelo link público de acesso ao vídeo Não listado. **Não envie a entrega final com este campo pendente.**
