@@ -1,84 +1,126 @@
-# Metaindustria Mobile Sprint 3
+# MetaindÃºstria â€” Mobile Dev | Sprint 4 (Entrega Final)
 
-Aplicativo mobile desenvolvido com React Native, Expo e TypeScript para listar, consultar e cadastrar equipamentos industriais usando a API Spring Boot da Metaindustria.
+Aplicativo de monitoramento e cadastro de equipamentos industriais, desenvolvido para a disciplina **Advanced Programming & Mobile Dev**. A soluÃ§Ã£o integra um **backend REST com Java/Spring Boot** e um **aplicativo mobile com React Native, Expo e TypeScript**.
 
-Na Sprint 3, o mock deixou de ser a fonte dos dados. O fluxo de lista, cadastro e detalhe agora usa registros reais do backend.
+## 1. Problema e soluÃ§Ã£o
 
-## Entidade utilizada
+O objetivo Ã© permitir o registro e a consulta de equipamentos industriais por setor, com informaÃ§Ãµes sobre status operacional, temperatura atual e Ãºltima manutenÃ§Ã£o. A API centraliza os registros em um banco H2 persistente em arquivo; o app utiliza essa API para listar, cadastrar e consultar equipamentos.
 
-O app usa a entidade `Equipamento`, alinhada ao JSON retornado pela API.
+**Entidade principal:** `Equipamento`.
 
-```ts
-export type Equipamento = {
-  id: number;
-  nome: string;
-  setor: string;
-  status: "ATIVO" | "MANUTENCAO" | "INATIVO";
-  temperaturaAtual: number;
-  dataUltimaManutencao: string;
-};
-```
+| Campo | Tipo | Exemplo |
+| --- | --- | --- |
+| `id` | `Long` (gerado pelo backend) | `1` |
+| `nome` | `String` | `Prensa Hidraulica 01` |
+| `setor` | `String` | `Linha de Producao A` |
+| `status` | `String` | `ATIVO` |
+| `temperaturaAtual` | `Double` | `72.5` |
+| `dataUltimaManutencao` | `LocalDate` (`yyyy-MM-dd`) | `2026-05-10` |
 
-## Estrutura de pastas
+## 2. Integrantes
 
-```text
-src/
-  components/
-    EquipamentoCard.tsx
-  screens/
-    CadastroEquipamentoScreen.tsx
-    DetalheEquipamentoScreen.tsx
-    ListaEquipamentosScreen.tsx
-  services/
-    api.ts
-    equipamentoService.ts
-  types/
-    Equipamento.ts
-App.tsx
-README.md
-entrega.txt
-```
+| Nome | RM |
+| --- | --- |
+| Pedro Alvarez Certo | 554603 |
+| Caio Tadeu da Silva Faraleski | 558795 |
+| Gustavo Demeis Peres | 555143 |
+| Rodrigo Caruzzo Benevides | 554665 |
+| Eduardo do Nascimento Souza | 558819 |
 
-## Camada de services
+## 3. RepositÃ³rios do cÃ³digo
 
-As telas nao chamam Axios diretamente e nao montam URL. Todas as chamadas passam pelos services:
+- **Backend Spring Boot:** https://github.com/RodrigoBenevides/metaindustria-backend-sprint1
+- **Frontend Expo (repositÃ³rio desta entrega):** https://github.com/dudu-initial/sprint-3-mobile-dev
 
-- `src/services/api.ts`: configura `baseURL`, `timeout` e header `Content-Type: application/json`.
-- `src/services/equipamentoService.ts`: expoe `listar`, `buscarPorId` e `criar`.
-
-O Axios foi instalado com:
+Para reproduzir, clone **ambos**:
 
 ```bash
-npx expo install axios
+git clone https://github.com/RodrigoBenevides/metaindustria-backend-sprint1.git
+git clone https://github.com/dudu-initial/sprint-3-mobile-dev.git
 ```
 
-## BASE_URL
+## 4. PrÃ©-requisitos
 
-O app usa estas URLs como referencia:
+- **Java 17** instalado e disponÃ­vel no terminal (`java -version`).
+- **Maven** ou o **Maven Wrapper** (`mvnw`/`mvnw.cmd`) incluÃ­do no backend.
+- **Node.js e npm** instalados (`node -v` e `npm -v`).
+- **Expo** executado por `npx expo start` (nÃ£o requer instalaÃ§Ã£o global da CLI).
+- Para abrir o app: **emulador Android** ou **celular com Expo Go**, na mesma rede do computador quando usar dispositivo fÃ­sico.
+- Git, para clonar os repositÃ³rios.
 
-- Web ou iOS simulator: `http://localhost:8080`
-- Emulador Android: `http://10.0.2.2:8080`
-- Celular fisico: IP da maquina na rede, por exemplo `http://192.168.0.10:8080`
+Use **dois terminais**: um para o backend e outro para o app.
 
-Por padrao, `api.ts` usa `10.0.2.2` no Android e `localhost` nas demais plataformas. Para testar em celular fisico, crie um arquivo `.env.local` com:
+## 5. Executar o backend (porta 8080)
+
+Abra um terminal na pasta `metaindustria-backend-sprint1`.
+
+**Windows (PowerShell):**
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+**macOS/Linux:**
+
+```bash
+./mvnw spring-boot:run
+```
+
+**Alternativa com Maven instalado:**
+
+```bash
+mvn spring-boot:run
+```
+
+A API estÃ¡ configurada na **porta 8080**. Com a aplicaÃ§Ã£o iniciada, abra:
+
+- `http://localhost:8080/equipamentos` â€” lista os equipamentos em **JSON** (pode retornar `[]` se o banco estiver vazio).
+- `http://localhost:8080/h2-console` â€” console do H2.
+
+**PersistÃªncia H2 em arquivo:** o backend usa `jdbc:h2:file:./data/metaindustria`, definido em `src/main/resources/application.properties`; ao reiniciar o backend na mesma pasta, os registros sÃ£o mantidos no arquivo do banco. ConfiguraÃ§Ã£o do console: usuÃ¡rio `sa`, senha vazia e a mesma URL JDBC.
+
+**CORS:** o `EquipamentoController` estÃ¡ anotado com `@CrossOrigin`.
+
+## 6. Executar o frontend Expo
+
+Em **outro terminal**, abra a pasta `sprint-3-mobile-dev` e execute:
+
+```bash
+npm install
+npx expo start
+```
+
+Abra o app pelo emulador ou pelo Expo Go. Mantenha o backend iniciado para carregar os registros.
+
+### Configurar a `BASE_URL` da API
+
+O arquivo `src/services/api.ts` usa `EXPO_PUBLIC_API_URL` quando configurada. Caso contrÃ¡rio, utiliza o endereÃ§o padrÃ£o por plataforma:
+
+| Onde o app roda | EndereÃ§o da API |
+| --- | --- |
+| Emulador Android (Android Studio) | `http://10.0.2.2:8080` |
+| Simulador iOS no mesmo computador / execuÃ§Ã£o local compatÃ­vel | `http://localhost:8080` |
+| Celular fÃ­sico (Android ou iPhone) | `http://IP_DO_COMPUTADOR:8080` |
+
+**AtenÃ§Ã£o:** `localhost` em um celular fÃ­sico aponta para o prÃ³prio celular, nÃ£o para o computador. Para usar um celular fÃ­sico, descubra o IP local do computador que executa o backend, mantenha ambos na mesma rede e crie um arquivo **`.env.local` na raiz do frontend**:
 
 ```env
-EXPO_PUBLIC_API_URL=http://SEU_IP_DA_MAQUINA:8080
+EXPO_PUBLIC_API_URL=http://192.168.0.10:8080
 ```
 
-Depois reinicie o Expo.
+Substitua `192.168.0.10` pelo IP real do computador. Depois de alterar o arquivo, reinicie o Expo, preferencialmente com `npx expo start -c`. A porta 8080 precisa estar acessÃ­vel pela rede local e liberada no firewall do computador.
 
-## Endpoints esperados
+## 7. Endpoints disponÃ­veis
 
-Confirme os endpoints no navegador, Postman ou Insomnia antes de abrir o app:
+| MÃ©todo | Rota | Finalidade | Usado no app |
+| --- | --- | --- | --- |
+| `GET` | `/equipamentos` | Listar equipamentos | Sim â€” lista |
+| `GET` | `/equipamentos/{id}` | Consultar um equipamento | Sim â€” detalhe |
+| `POST` | `/equipamentos` | Cadastrar equipamento | Sim â€” cadastro |
+| `PUT` | `/equipamentos/{id}` | Atualizar equipamento | DisponÃ­vel na API, nÃ£o usado nas trÃªs telas |
+| `DELETE` | `/equipamentos/{id}` | Remover equipamento | DisponÃ­vel na API, nÃ£o usado nas trÃªs telas |
 
-```http
-GET http://localhost:8080/equipamentos
-GET http://localhost:8080/equipamentos/{id}
-POST http://localhost:8080/equipamentos
-```
-
-Exemplo de body para `POST /equipamentos`:
+**Exemplo do corpo de `POST /equipamentos`:**
 
 ```json
 {
@@ -90,54 +132,46 @@ Exemplo de body para `POST /equipamentos`:
 }
 ```
 
-No backend Spring Boot, os controllers devem liberar CORS com `@CrossOrigin`.
+## 8. Fluxo tela â†’ serviÃ§o â†’ endpoint
 
-## Como subir o backend
+| Tela | Chamada da tela | Camada `src/services/` | RequisiÃ§Ã£o Ã  API |
+| --- | --- | --- | --- |
+| `ListaEquipamentosScreen` | `listar()` | `equipamentoService.ts` â†’ `api.ts` | `GET /equipamentos` |
+| `CadastroEquipamentoScreen` | `criar(dados)` | `equipamentoService.ts` â†’ `api.ts` | `POST /equipamentos` |
+| `DetalheEquipamentoScreen` | `buscarPorId(id)` | `equipamentoService.ts` â†’ `api.ts` | `GET /equipamentos/{id}` |
 
-Na pasta do backend Spring Boot da Sprint 1, suba a API na porta `8080`.
+`api.ts` concentra a URL base, o timeout de 10 segundos e o header JSON. Os dados exibidos no fluxo principal vÃªm da API: **o frontend final nÃ£o utiliza mock para alimentar lista, cadastro ou detalhe**.
 
-Com Maven Wrapper:
+## 9. Como comprovar o cadastro do app na API
 
-```bash
-./mvnw spring-boot:run
-```
+1. Com o backend em execuÃ§Ã£o, abra `http://localhost:8080/equipamentos` no navegador e observe o JSON atual (uma lista vazia tambÃ©m Ã© vÃ¡lida).
+2. No aplicativo Expo, abra **Cadastrar equipamento**.
+3. Preencha nome e setor; selecione o status e informe temperatura e data de manutenÃ§Ã£o. Toque em **Salvar equipamento**.
+4. Retorne Ã  lista e veja o equipamento cadastrado. Abra sua ficha de **detalhe**, que busca os dados pela API.
+5. Atualize `http://localhost:8080/equipamentos` no navegador. O equipamento cadastrado deve estar presente no JSON com um `id` atribuÃ­do pelo backend.
+6. Para confirmar a persistÃªncia, encerre e reinicie a API na **mesma pasta** e consulte o GET novamente.
 
-Ou com Maven instalado:
+## 10. Como comprovar o erro com o backend desligado
 
-```bash
-mvn spring-boot:run
-```
+1. Com a API funcionando, confirme que a lista do app carrega os dados reais.
+2. No terminal do backend, pressione **Ctrl+C** e encerre o Spring Boot; mantenha o Expo aberto.
+3. Volte ao aplicativo e provoque uma nova consulta (por exemplo, reabra a lista ou use **Tentar novamente** quando disponÃ­vel).
+4. O aplicativo deve apresentar **Backend indisponÃ­vel** ou mensagem de consulta/cadastro indisponÃ­vel. Os dados **nÃ£o devem ser substituÃ­dos por uma lista de mock**.
+5. Se desejar demonstrar a recuperaÃ§Ã£o, reinicie o backend e toque em **Tentar novamente**.
 
-Antes de integrar, teste `http://localhost:8080/equipamentos` e confirme que a resposta esta em JSON.
+O erro deve ser exibido ao tentar obter os dados novamente; uma tela jÃ¡ carregada anteriormente nÃ£o realiza necessariamente uma nova requisiÃ§Ã£o atÃ© ser reaberta ou atualizada.
 
-## Como subir o frontend
+## 11. VÃ­deo demonstrativo (YouTube â€” NÃ£o listado)
 
-Na pasta deste projeto:
+**Link do vÃ­deo da Sprint 4:** **[INSERIR AQUI O LINK REAL DO VÃDEO FINAL PUBLICADO NO YOUTUBE]**
 
-```bash
-npm install
-npx expo start
-```
+O vÃ­deo final deve ter **atÃ© cinco minutos**, ficar como **NÃ£o listado** (nÃ£o Privado) e demonstrar, nesta ordem:
 
-Tambem e possivel usar:
+1. README e links de frontend/backend no GitHub.
+2. Backend iniciado e `GET /equipamentos` retornando JSON.
+3. Aplicativo Expo listando os dados da API.
+4. Cadastro pelo app e registro novo aparecendo no GET do backend.
+5. Encerramento da API pelo terminal.
+6. Nova tentativa de carregamento no aplicativo com mensagem de erro visÃ­vel e **sem fallback para dados mockados**.
 
-```bash
-npm start
-```
-
-## Fluxo integrado do app
-
-- A tela de lista chama `GET /equipamentos` com `useEffect`.
-- A tela de cadastro chama `POST /equipamentos`.
-- A tela de detalhe chama `GET /equipamentos/{id}`.
-- As chamadas usam `try/catch/finally`.
-- O app exibe estados de carregamento, erro e sucesso.
-- Se o backend estiver parado, lista, detalhe e cadastro mostram mensagem de erro e a lista/detalhe permitem tentar novamente.
-
-## Integrantes do grupo
-
-- Pedro Alvarez Certo - RM 554603 - pedro.a.certo@gmail.com
-- Caio Tadeu Da Silva Faraleski - RM 558795 - faraleskicaio@gmail.com
-- Gustavo Demeis Peres - RM 555143 - gustavo.demeis@gmail.com
-- Rodrigo Caruzzo Benevides - RM 554665 - digocbenevides@gmail.com
-- Eduardo do Nascimento Souza - RM 558819 - contato.eduardons@gmail.com
+**Antes de entregar:** substitua o texto entre colchetes pelo link pÃºblico de acesso ao vÃ­deo NÃ£o listado. **NÃ£o envie a entrega final com este campo pendente.**
