@@ -30,13 +30,13 @@ O objetivo Ã© permitir o registro e a consulta de equipamentos industriais por
 ## 3. RepositÃ³rios do cÃ³digo
 
 - **Backend Spring Boot:** https://github.com/RodrigoBenevides/metaindustria-backend-sprint1
-- **Frontend Expo (repositÃ³rio desta entrega):** https://github.com/dudu-initial/sprint-3-mobile-dev
+- **Frontend Expo (repositÃ³rio desta entrega):** https://github.com/RodrigoBenevides/metaindustria-mobile-sprint4
 
 Para reproduzir, clone **ambos**:
 
 ```bash
 git clone https://github.com/RodrigoBenevides/metaindustria-backend-sprint1.git
-git clone https://github.com/dudu-initial/sprint-3-mobile-dev.git
+git clone https://github.com/RodrigoBenevides/metaindustria-mobile-sprint4.git
 ```
 
 ## 4. PrÃ©-requisitos
@@ -83,7 +83,7 @@ A API estÃ¡ configurada na **porta 8080**. Com a aplicaÃ§Ã£o iniciada, abr
 
 ## 6. Executar o frontend Expo
 
-Em **outro terminal**, abra a pasta `sprint-3-mobile-dev` e execute:
+Em **outro terminal**, abra a pasta `metaindustria-mobile-sprint4` e execute:
 
 ```bash
 npm install
